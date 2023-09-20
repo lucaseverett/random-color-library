@@ -1,0 +1,48 @@
+{
+  "name": "random-color-library",
+  "type": "module",
+  "version": "0.1.1",
+  "description": "Generate random colors from the Material Design color palette.",
+  "keywords": [
+    "material-colors",
+    "material-design",
+    "random-color-generator",
+    "random-material-colors"
+  ],
+  "homepage": "https://github.com/lucaseverett/random-color-library#readme",
+  "bugs": {
+    "url": "https://github.com/lucaseverett/random-color-library/issues",
+    "email": "lucas@lucaseverett.dev"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Lucas Everett",
+    "email": "lucas@lucaseverett.dev",
+    "url": "https://lucaseverett.dev"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucaseverett/random-color-library.git"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "format": "prettier --write .",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src",
+    "test": "bun test",
+    "test:watch": "bun test --watch"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.7.2",
+    "@typescript-eslint/parser": "^6.7.2",
+    "bun-types": "^1.0.2",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  }
+}
