@@ -1,8 +1,9 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, it } from "vitest";
+
 import { getColorsByShade } from "./materialColors.js";
 
 describe("getColorsByShade", () => {
-  test("should return correct hex values for shade", () => {
+  it("should return correct hex values for shade", () => {
     expect(getColorsByShade("700")).toEqual([
       "#d32f2f",
       "#c2185b",
@@ -26,7 +27,7 @@ describe("getColorsByShade", () => {
     ]);
   });
 
-  test("should return undefined for invalid shade", () => {
+  it("should return undefined for invalid shade", () => {
     // @ts-expect-error: Invalid shade
     expect(getColorsByShade["invalidShade"]).toBeUndefined();
   });

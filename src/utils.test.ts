@@ -1,8 +1,9 @@
-import { describe, expect, test } from "bun:test";
-import { randomIntFromHash, getRandomInt, murmur3_32 } from "./utils.js";
+import { describe, expect, it } from "vitest";
+
+import { getRandomInt, murmur3_32, randomIntFromHash } from "./utils.js";
 
 describe("randomIntFromHash", () => {
-  test("generates a consistent integer for the same text", () => {
+  it("generates a consistent integer for the same text", () => {
     const text = "text to use";
     const length = 100;
     for (let i = 0; i < 1000; i++) {
@@ -13,13 +14,13 @@ describe("randomIntFromHash", () => {
   });
 });
 describe("getRandomInt", () => {
-  test("returns integer values", () => {
+  it("returns integer values", () => {
     for (let i = 0; i < 10; i++) {
       const result = getRandomInt(100);
-      expect(Number.isInteger(result)).toBe(true);
+      expect(Number.isInteger(result)).toBeTruthy();
     }
   });
-  test("returns values within bounds", () => {
+  it("returns values within bounds", () => {
     const max = 10;
     for (let i = 0; i < 10; i++) {
       const randomInt = getRandomInt(max);
@@ -29,13 +30,13 @@ describe("getRandomInt", () => {
   });
 });
 describe("murmur3_32", () => {
-  test("returns a stable hash for the same text", () => {
+  it("returns a stable hash for the same text", () => {
     const text = "input one";
     const hash1 = murmur3_32(text);
     const hash2 = murmur3_32(text);
     expect(hash1).toEqual(hash2);
   });
-  test("returns different hashes for different text", () => {
+  it("returns different hashes for different text", () => {
     const text1 = "input one";
     const text2 = "input two";
     const hash1 = murmur3_32(text1);

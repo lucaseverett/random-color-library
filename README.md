@@ -88,26 +88,37 @@ const color = randomMaterialColor("string to use", {
 // Returns a consistent hex color for the text and options
 ```
 
-## Development
+## Utility Functions
 
-Random Color Library uses [Bun](https://bun.sh/) as a package manager and test runner.
+### Get all Colors for a Specific Shade
+
+You can retrieve a list of all colors for a given shade.
+
+```javascript
+import { getColorsByShade } from "random-color-library";
+
+const fiveHundredShadeColors = getColorsByShade("500");
+// Returns an array of all hex colors for the "500" shade
+```
+
+## Development
 
 ### Installation
 
 ```sh
-bun install
+npm install
 ```
 
 ### Run tests once
 
 ```sh
-bun run test
+npm run test
 ```
 
 ### Run tests and watch for changes
 
 ```sh
-bun run test:watch
+npm run test:watch
 ```
 
 ## Linting
@@ -115,17 +126,17 @@ bun run test:watch
 ### Lint with ESLint
 
 ```sh
-bun run lint
+npm run lint
 ```
 
 ### Format with Prettier
 
 ```sh
-bun run format
+npm run format
 ```
 
 ## Building
 
 ```sh
-bun run build
+npm run build
 ```

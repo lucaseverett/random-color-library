@@ -1,25 +1,26 @@
-import { describe, expect, test } from "bun:test";
-import { randomMaterialColor } from "./randomMaterialColor.js";
+import { describe, expect, it } from "vitest";
+
 import { getColorsByShade, materialColors } from "./materialColors.js";
+import { randomMaterialColor } from "./randomMaterialColor.js";
 
 describe("randomMaterialColor", () => {
-  test("returns a random color", () => {
+  it("returns a random color", () => {
     const random = randomMaterialColor();
     expect(random).toMatch(/#[0-9a-f]{6}/i);
   });
-  test("returns a stable random color when given text", () => {
+  it("returns a stable random color when given text", () => {
     const random = randomMaterialColor("text to use");
     const random2 = randomMaterialColor("text to use");
     expect(random).toMatch(/#[0-9a-f]{6}/i);
-    expect(random).toEqual(random2);
+    expect(random).toBe(random2);
   });
-  test("throws an error when given an invalid color", () => {
+  it("throws an error when given an invalid color", () => {
     // @ts-expect-error: Invalid color
     expect(() => randomMaterialColor({ colors: ["invalidColor"] })).toThrow(
-      "Invalid color provided",
+      /Invalid color provided/,
     );
   });
-  test("returns a random color when given options with colors", () => {
+  it("returns a random color when given options with colors", () => {
     const random = randomMaterialColor({ colors: ["red", "yellow"] });
     const isRandomInRed = Object.values(materialColors["red"]).includes(random);
     const isRandomInYellow = Object.values(materialColors["yellow"]).includes(
@@ -27,23 +28,23 @@ describe("randomMaterialColor", () => {
     );
     expect(isRandomInRed || isRandomInYellow).toBeTruthy();
   });
-  test("throws an error when given an invalid shade", () => {
+  it("throws an error when given an invalid shade", () => {
     // @ts-expect-error: Invalid shade
     expect(() => randomMaterialColor({ shades: ["invalidShade"] })).toThrow(
-      "Invalid shade provided",
+      /Invalid shade provided/,
     );
   });
-  test("returns a random color when given options with shades", () => {
+  it("returns a random color when given options with shades", () => {
     const random = randomMaterialColor({ shades: ["500", "700"] });
     const isRandomIn500 = getColorsByShade("500").includes(random);
     const isRandomIn700 = getColorsByShade("700").includes(random);
     expect(isRandomIn500 || isRandomIn700).toBeTruthy();
   });
-  test("returns a specific color when given options with a specific color and shade", () => {
+  it("returns a specific color when given options with a specific color and shade", () => {
     const random = randomMaterialColor({ colors: ["red"], shades: ["700"] });
-    expect(random).toEqual("#d32f2f");
+    expect(random).toBe("#d32f2f");
   });
-  test("returns a random color when given options with colors and shades", () => {
+  it("returns a random color when given options with colors and shades", () => {
     const random = randomMaterialColor({
       colors: ["red", "yellow"],
       shades: ["500", "700"],
@@ -54,13 +55,13 @@ describe("randomMaterialColor", () => {
     const isYellow700 = materialColors["yellow"]["700"] === random;
     expect(isRed500 || isYellow500 || isRed700 || isYellow700).toBeTruthy();
   });
-  test("throws an error when given an invalid exclude shade", () => {
+  it("throws an error when given an invalid exclude shade", () => {
     // @ts-expect-error: Invalid shade
     // prettier-ignore
     expect(() => randomMaterialColor({ excludeShades: ["invalidShade"] })
-    ).toThrow("Invalid shade provided");
+    ).toThrow(/Invalid shade provided/);
   });
-  test("returns a random color when given options with excluded shades", () => {
+  it("returns a random color when given options with excluded shades", () => {
     const random = randomMaterialColor({ excludeShades: ["500", "700"] });
     for (let i = 0; i < 1000; i++) {
       const isRandomIn500 = getColorsByShade("500").includes(random);
@@ -68,13 +69,13 @@ describe("randomMaterialColor", () => {
       expect(isRandomIn500 || isRandomIn700).toBeFalsy();
     }
   });
-  test("throws an error when given an invalid exclude color", () => {
+  it("throws an error when given an invalid exclude color", () => {
     // @ts-expect-error: Invalid color
     // prettier-ignore
     expect(() => randomMaterialColor({ excludeColors: ["invalidColor"] })
-    ).toThrow("Invalid color provided");
+    ).toThrow(/Invalid color provided/);
   });
-  test("returns a random color when given options with excluded colors", () => {
+  it("returns a random color when given options with excluded colors", () => {
     const random = randomMaterialColor({ excludeColors: ["red", "yellow"] });
     for (let i = 0; i < 1000; i++) {
       const isRandomInRed = Object.values(materialColors["red"]).includes(
@@ -86,7 +87,7 @@ describe("randomMaterialColor", () => {
       expect(isRandomInRed || isRandomInYellow).toBeFalsy();
     }
   });
-  test("returns a random color when given options with excluded colors and excluded shades", () => {
+  it("returns a random color when given options with excluded colors and excluded shades", () => {
     const random = randomMaterialColor({
       excludeColors: ["red", "yellow"],
       excludeShades: ["500", "700"],
@@ -105,17 +106,17 @@ describe("randomMaterialColor", () => {
       ).toBeFalsy();
     }
   });
-  test("throws an error when given both colors and exclude colors", () => {
+  it("throws an error when given both colors and exclude colors", () => {
     expect(() =>
       randomMaterialColor({ colors: ["red"], excludeColors: ["red"] }),
-    ).toThrow("Cannot provide both colors and excludeColors");
+    ).toThrow(/Cannot provide both colors and excludeColors/);
   });
-  test("throws an error when given both shades and exclude shades", () => {
+  it("throws an error when given both shades and exclude shades", () => {
     expect(() =>
       randomMaterialColor({ shades: ["500"], excludeShades: ["500"] }),
-    ).toThrow("Cannot provide both shades and excludeShades");
+    ).toThrow(/Cannot provide both shades and excludeShades/);
   });
-  test("returns a stable random color when given text and options", () => {
+  it("returns a stable random color when given text and options", () => {
     const random = randomMaterialColor("text to use", {
       colors: ["red", "yellow"],
       shades: ["500", "700"],
@@ -129,12 +130,12 @@ describe("randomMaterialColor", () => {
     const isRed700 = materialColors["red"]["700"] === random;
     const isYellow700 = materialColors["yellow"]["700"] === random;
     expect(isRed500 || isYellow500 || isRed700 || isYellow700).toBeTruthy();
-    expect(random).toEqual(random2);
+    expect(random).toBe(random2);
   });
-  test("throws an error when given an invalid option", () => {
+  it("throws an error when given an invalid option", () => {
     // @ts-expect-error: Invalid option
     expect(() => randomMaterialColor({ invalidOption: "value" })).toThrow(
-      "Invalid option provided",
+      /Invalid option provided/,
     );
   });
 });

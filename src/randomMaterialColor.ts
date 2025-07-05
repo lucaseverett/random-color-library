@@ -17,13 +17,13 @@ type MaterialColorOptions = {
 };
 
 // Type guard to check if a value is a valid shade
-function isListOfShades(value: any): value is listOfShades {
-  return listOfShades.includes(value);
+function isListOfShades(value: unknown): value is listOfShades {
+  return listOfShades.includes(value as listOfShades);
 }
 
 // Type guard to check if a value is a valid color
-function isListOfColors(value: any): value is listOfColors {
-  return listOfColors.includes(value);
+function isListOfColors(value: unknown): value is listOfColors {
+  return listOfColors.includes(value as listOfColors);
 }
 
 // Overloads for the randomMaterialColor function

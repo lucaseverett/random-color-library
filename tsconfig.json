@@ -11,8 +11,7 @@
     "removeComments": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2022",
-    "types": ["bun-types"]
+    "target": "es2022"
   },
   "include": ["src"]
 }
