@@ -103,6 +103,8 @@ const fiveHundredShadeColors = getColorsByShade("500");
 
 ## Development
 
+Random Color Library uses [npm](https://npm.sh/) as a package manager and test runner.
+
 ### Installation
 
 ```sh
