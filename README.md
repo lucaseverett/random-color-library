@@ -101,6 +101,45 @@ const fiveHundredShadeColors = getColorsByShade("500");
 // Returns an array of all hex colors for the "500" shade
 ```
 
+### Validate Hex Color
+
+Validate whether a string is a valid hex color format. Supports both 3 and 6 character hex codes, with or without the `#` prefix.
+
+```javascript
+import { validateHex } from "random-color-library";
+
+validateHex("#ff5722"); // Returns true
+validateHex("ff5722"); // Returns true
+validateHex("#f57"); // Returns true
+validateHex("f57"); // Returns true
+validateHex("not-a-color"); // Returns false
+```
+
+### Calculate Relative Luminance
+
+Calculate the relative luminance of a color for accessibility calculations.
+
+```javascript
+import { relativeLuminance } from "random-color-library";
+
+const luminance = relativeLuminance("#ff5722");
+// Returns a number between 0 and 1 representing the relative luminance
+```
+
+### Calculate Contrast Ratio
+
+Calculate the contrast ratio between two colors for accessibility compliance.
+
+```javascript
+import { contrastRatio } from "random-color-library";
+
+const ratio = contrastRatio("#ffffff", "#000000");
+// Returns 21 (the maximum contrast ratio between white and black)
+
+const ratio2 = contrastRatio("#ff5722", "#ffffff");
+// Returns the contrast ratio between the two colors
+```
+
 ## Development
 
 ### Installation
@@ -119,6 +158,14 @@ npm run test
 
 ```sh
 npm run test:watch
+```
+
+## Type Checking
+
+### Check types with TypeScript
+
+```sh
+npm run tsc
 ```
 
 ## Linting
