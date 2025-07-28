@@ -112,7 +112,7 @@ validateHex("#ff5722"); // Returns true
 validateHex("ff5722"); // Returns true
 validateHex("#f57"); // Returns true
 validateHex("f57"); // Returns true
-validateHex("not-a-color"); // Returns false
+validateHex("purple"); // Returns false
 ```
 
 ### Calculate Relative Luminance
