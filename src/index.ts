@@ -3,3 +3,5 @@ export { getColorsByShade } from "./materialColors.js";
 export { contrastRatio } from "./contrastRatio.js";
 export { relativeLuminance } from "./relativeLuminance.js";
 export { validateHex } from "./validateHex.js";
+export { validateRGB } from "./validateRGB.js";
+export { convertToHex } from "./convertToHex.js";
