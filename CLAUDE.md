@@ -21,8 +21,9 @@ This is a TypeScript library that generates random colors from the Material Desi
 - **Main Function**: `src/randomMaterialColor.ts` - Core color generation logic with function overloads
 - **Color Data**: `src/materialColors.ts` - Material Design color palette and utility functions
 - **Utilities**: `src/utils.ts` - Random number generation and hash-based consistency
-- **Validation**: `src/validateHex.ts` - Hex color validation
+- **Validation**: `src/validateHex.ts` - Hex color validation, `src/validateRGB.ts` - RGB color validation
 - **Color Analysis**: `src/contrastRatio.ts`, `src/relativeLuminance.ts` - Color accessibility utilities
+- **Color Conversion**: `src/convertToHex.ts` - RGB to Hex color conversion
 
 ### Key Features
 

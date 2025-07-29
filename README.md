@@ -115,6 +115,28 @@ validateHex("f57"); // Returns true
 validateHex("purple"); // Returns false
 ```
 
+### Validate RGB Color
+
+Validate whether input represents a valid RGB color. Supports multiple input formats including objects, arrays, strings, and separate parameters.
+
+```javascript
+import { validateRGB } from "random-color-library";
+
+// Object format
+validateRGB({ r: 255, g: 87, b: 34 }); // Returns true
+
+// Array format
+validateRGB([255, 87, 34]); // Returns true
+
+// String formats
+validateRGB("rgb(255, 87, 34)"); // Returns true
+validateRGB("255, 87, 34"); // Returns true
+validateRGB("255 87 34"); // Returns true
+
+// Separate parameters
+validateRGB(255, 87, 34); // Returns true
+```
+
 ### Calculate Relative Luminance
 
 Calculate the relative luminance of a color for accessibility calculations.
@@ -133,11 +155,33 @@ Calculate the contrast ratio between two colors for accessibility compliance.
 ```javascript
 import { contrastRatio } from "random-color-library";
 
-const ratio = contrastRatio("#ffffff", "#000000");
+contrastRatio("#ffffff", "#000000");
 // Returns 21 (the maximum contrast ratio between white and black)
 
-const ratio2 = contrastRatio("#ff5722", "#ffffff");
+contrastRatio("#ff5722", "#ffffff");
 // Returns the contrast ratio between the two colors
+```
+
+### Convert RGB to Hex
+
+Convert RGB color values to hexadecimal format.
+
+```javascript
+import { convertToHex } from "random-color-library";
+
+// Object format
+convertToHex({ r: 255, g: 87, b: 34 }); // Returns "#ff5722"
+
+// Array format
+convertToHex([255, 87, 34]); // Returns "#ff5722"
+
+// String formats
+convertToHex("rgb(255, 87, 34)"); // Returns "#ff5722"
+convertToHex("255, 87, 34"); // Returns "#ff5722"
+convertToHex("255 87 34"); // Returns "#ff5722"
+
+// Separate parameters
+convertToHex(255, 87, 34); // Returns "#ff5722"
 ```
 
 ## Development
