@@ -15,5 +15,5 @@ export function contrastRatio(color1: string, color2: string): number {
 
   const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 
-  return ratio;
+  return Math.trunc(ratio * 100) / 100;
 }

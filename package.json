@@ -1,7 +1,7 @@
 {
   "name": "random-color-library",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Generate random colors from the Material Design color palette.",
   "keywords": [
     "material-colors",

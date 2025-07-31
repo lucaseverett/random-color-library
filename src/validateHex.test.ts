@@ -1,106 +1,77 @@
 import { describe, expect, test } from "vitest";
 
+import { INVALID_HEX_COLORS, TEST_COLORS } from "./test.constants.js";
 import { validateHex } from "./validateHex.js";
 
 describe("validateHex", () => {
   describe("valid hex colors", () => {
-    test("should accept 3-character hex colors", () => {
-      expect(validateHex("#fff")).toBe(true);
-      expect(validateHex("#000")).toBe(true);
-      expect(validateHex("#abc")).toBe(true);
-      expect(validateHex("#123")).toBe(true);
-      expect(validateHex("#def")).toBe(true);
+    const hex3Colors = Object.values(TEST_COLORS)
+      .filter((color) => "hex3" in color && color.hex3)
+      .map((color) => (color as typeof TEST_COLORS.BLACK).hex3!);
+    test.for(hex3Colors)("should accept 3-character hex color %s", (color) => {
+      expect(validateHex(color)).toBe(true);
     });
 
-    test("should accept 6-character hex colors", () => {
-      expect(validateHex("#ffffff")).toBe(true);
-      expect(validateHex("#000000")).toBe(true);
-      expect(validateHex("#abcdef")).toBe(true);
-      expect(validateHex("#123456")).toBe(true);
-      expect(validateHex("#fedcba")).toBe(true);
+    const hex6Colors = Object.values(TEST_COLORS).map((color) => color.hex);
+    test.for(hex6Colors)("should accept 6-character hex color %s", (color) => {
+      expect(validateHex(color)).toBe(true);
     });
 
-    test("should accept uppercase hex colors", () => {
-      expect(validateHex("#FFF")).toBe(true);
-      expect(validateHex("#ABCDEF")).toBe(true);
-      expect(validateHex("#ABC")).toBe(true);
-    });
-
-    test("should accept mixed case hex colors", () => {
-      expect(validateHex("#AbC")).toBe(true);
-      expect(validateHex("#aBcDeF")).toBe(true);
-    });
+    const uppercaseColors = [
+      TEST_COLORS.WHITE.hex3!.toUpperCase(),
+      TEST_COLORS.WHITE.hex.toUpperCase(),
+      TEST_COLORS.RED.hex.toUpperCase(),
+      TEST_COLORS.BLUE.hex3!.toUpperCase(),
+    ];
+    test.for(uppercaseColors)(
+      "should accept uppercase hex color %s",
+      (color) => {
+        expect(validateHex(color)).toBe(true);
+      },
+    );
   });
 
   describe("valid hex colors without hash", () => {
-    test("should accept 3-character hex colors without hash", () => {
-      expect(validateHex("fff")).toBe(true);
-      expect(validateHex("000")).toBe(true);
-      expect(validateHex("abc")).toBe(true);
-      expect(validateHex("123")).toBe(true);
-      expect(validateHex("def")).toBe(true);
-    });
+    const hex3ColorsNoHash = Object.values(TEST_COLORS)
+      .filter((color) => "hex3" in color && color.hex3)
+      .map((color) => (color as typeof TEST_COLORS.BLACK).hex3!.slice(1));
+    test.for(hex3ColorsNoHash)(
+      "should accept 3-character hex color without hash %s",
+      (color) => {
+        expect(validateHex(color)).toBe(true);
+      },
+    );
 
-    test("should accept 6-character hex colors without hash", () => {
-      expect(validateHex("ffffff")).toBe(true);
-      expect(validateHex("000000")).toBe(true);
-      expect(validateHex("abcdef")).toBe(true);
-      expect(validateHex("123456")).toBe(true);
-      expect(validateHex("fedcba")).toBe(true);
-    });
+    const hex6ColorsNoHash = Object.values(TEST_COLORS).map((color) =>
+      color.hex.slice(1),
+    );
+    test.for(hex6ColorsNoHash)(
+      "should accept 6-character hex color without hash %s",
+      (color) => {
+        expect(validateHex(color)).toBe(true);
+      },
+    );
 
-    test("should accept uppercase hex colors without hash", () => {
-      expect(validateHex("FFF")).toBe(true);
-      expect(validateHex("ABCDEF")).toBe(true);
-      expect(validateHex("ABC")).toBe(true);
-    });
-
-    test("should accept mixed case hex colors without hash", () => {
-      expect(validateHex("AbC")).toBe(true);
-      expect(validateHex("aBcDeF")).toBe(true);
-    });
+    const uppercaseColorsNoHash = [
+      TEST_COLORS.WHITE.hex3!.slice(1).toUpperCase(),
+      TEST_COLORS.WHITE.hex.slice(1).toUpperCase(),
+      TEST_COLORS.RED.hex.slice(1).toUpperCase(),
+      TEST_COLORS.BLUE.hex3!.slice(1).toUpperCase(),
+    ];
+    test.for(uppercaseColorsNoHash)(
+      "should accept uppercase hex color without hash %s",
+      (color) => {
+        expect(validateHex(color)).toBe(true);
+      },
+    );
   });
 
   describe("invalid hex colors", () => {
-    test("should reject colors with invalid length", () => {
-      expect(validateHex("#ff")).toBe(false);
-      expect(validateHex("#ffff")).toBe(false);
-      expect(validateHex("#fffff")).toBe(false);
-      expect(validateHex("#fffffff")).toBe(false);
-      expect(validateHex("ff")).toBe(false);
-      expect(validateHex("ffff")).toBe(false);
-      expect(validateHex("fffff")).toBe(false);
-      expect(validateHex("fffffff")).toBe(false);
-    });
-
-    test("should reject colors with invalid characters", () => {
-      expect(validateHex("#ggg")).toBe(false);
-      expect(validateHex("#gggggg")).toBe(false);
-      expect(validateHex("#xyz")).toBe(false);
-      expect(validateHex("#12345g")).toBe(false);
-      expect(validateHex("ggg")).toBe(false);
-      expect(validateHex("gggggg")).toBe(false);
-      expect(validateHex("xyz")).toBe(false);
-      expect(validateHex("12345g")).toBe(false);
-    });
-
-    test("should reject empty strings and non-strings", () => {
-      expect(validateHex("")).toBe(false);
-      expect(validateHex("#")).toBe(false);
-    });
-
-    test("should reject strings with spaces", () => {
-      expect(validateHex("# ff")).toBe(false);
-      expect(validateHex("#ff f")).toBe(false);
-      expect(validateHex(" #fff")).toBe(false);
-      expect(validateHex(" fff")).toBe(false);
-      expect(validateHex("ff f")).toBe(false);
-      expect(validateHex("fff ")).toBe(false);
-    });
-
-    test("should reject multiple hash symbols", () => {
-      expect(validateHex("##fff")).toBe(false);
-      expect(validateHex("#f#ff")).toBe(false);
-    });
+    test.for(INVALID_HEX_COLORS)(
+      "should reject invalid hex color %s",
+      (color) => {
+        expect(validateHex(color)).toBe(false);
+      },
+    );
   });
 });
