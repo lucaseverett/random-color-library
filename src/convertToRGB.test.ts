@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { convertToRGB } from "./convertToRGB.js";
 import { INVALID_HEX_COLORS, TEST_COLORS } from "./test.constants.js";
@@ -13,15 +13,12 @@ describe("convertToRGB", () => {
       }),
     );
 
-    test.for(testColorsArray)(
-      "converts $name hex color $hex to RGB",
-      ({ hex, rgb }) => {
-        expect(convertToRGB(hex)).toEqual(rgb);
-      },
-    );
+    it.for(testColorsArray)("converts %o hex color to RGB", ({ hex, rgb }) => {
+      expect(convertToRGB(hex)).toEqual(rgb);
+    });
 
-    test.for(testColorsArray)(
-      "converts $name hex color without # prefix to RGB",
+    it.for(testColorsArray)(
+      "converts %o hex color without # prefix to RGB",
       ({ hex, rgb }) => {
         const hexWithoutHash = hex.slice(1);
         expect(convertToRGB(hexWithoutHash)).toEqual(rgb);
@@ -38,15 +35,15 @@ describe("convertToRGB", () => {
         rgb: color.rgb,
       }));
 
-    test.for(testColors3Array)(
-      "converts $name 3-digit hex color $hex3 to RGB",
+    it.for(testColors3Array)(
+      "converts %o 3-digit hex color to RGB",
       ({ hex3, rgb }) => {
         expect(convertToRGB(hex3)).toEqual(rgb);
       },
     );
 
-    test.for(testColors3Array)(
-      "converts $name 3-digit hex color without # prefix to RGB",
+    it.for(testColors3Array)(
+      "converts %o 3-digit hex color without # prefix to RGB",
       ({ hex3, rgb }) => {
         const hex3WithoutHash = hex3.slice(1);
         expect(convertToRGB(hex3WithoutHash)).toEqual(rgb);
@@ -63,15 +60,15 @@ describe("convertToRGB", () => {
       }),
     );
 
-    test.for(testColorsArray)(
-      "handles $name uppercase hex color",
+    it.for(testColorsArray)(
+      "handles %o uppercase hex color",
       ({ hex, rgb }) => {
         expect(convertToRGB(hex.toUpperCase())).toEqual(rgb);
       },
     );
 
-    test.for(testColorsArray)(
-      "handles $name uppercase hex color without # prefix",
+    it.for(testColorsArray)(
+      "handles %o uppercase hex color without # prefix",
       ({ hex, rgb }) => {
         const hexWithoutHash = hex.slice(1).toUpperCase();
         expect(convertToRGB(hexWithoutHash)).toEqual(rgb);
@@ -86,15 +83,15 @@ describe("convertToRGB", () => {
         rgb: color.rgb,
       }));
 
-    test.for(testColors3Array)(
-      "handles $name uppercase 3-digit hex color",
+    it.for(testColors3Array)(
+      "handles %o uppercase 3-digit hex color",
       ({ hex3, rgb }) => {
         expect(convertToRGB(hex3.toUpperCase())).toEqual(rgb);
       },
     );
 
-    test.for(testColors3Array)(
-      "handles $name uppercase 3-digit hex color without # prefix",
+    it.for(testColors3Array)(
+      "handles %o uppercase 3-digit hex color without # prefix",
       ({ hex3, rgb }) => {
         const hex3WithoutHash = hex3.slice(1).toUpperCase();
         expect(convertToRGB(hex3WithoutHash)).toEqual(rgb);
@@ -108,12 +105,9 @@ describe("convertToRGB", () => {
       { name: "undefined", input: undefined },
     ];
 
-    test.for(nullUndefinedInputs)(
-      "throws error for $name input",
-      ({ input }) => {
-        expect(() => convertToRGB(input as unknown as string)).toThrow();
-      },
-    );
+    it.for(nullUndefinedInputs)("throws error for %o input", ({ input }) => {
+      expect(() => convertToRGB(input as unknown as string)).toThrow();
+    });
 
     const nonStringInputs = [
       { name: "number", input: 123 },
@@ -122,11 +116,11 @@ describe("convertToRGB", () => {
       { name: "array", input: [] },
     ];
 
-    test.for(nonStringInputs)("throws error for $name input", ({ input }) => {
+    it.for(nonStringInputs)("throws error for %o input", ({ input }) => {
       expect(() => convertToRGB(input as unknown as string)).toThrow();
     });
 
-    test.for(INVALID_HEX_COLORS)(
+    it.for(INVALID_HEX_COLORS)(
       "throws error for invalid hex color %s",
       (invalidHex) => {
         expect(() => convertToRGB(invalidHex)).toThrow();
@@ -138,7 +132,7 @@ describe("convertToRGB", () => {
       { name: "just hash symbol", input: "#" },
     ];
 
-    test.for(specialCases)("throws error for $name", ({ input }) => {
+    it.for(specialCases)("throws error for %o", ({ input }) => {
       expect(() => convertToRGB(input)).toThrow();
     });
 
@@ -153,8 +147,8 @@ describe("convertToRGB", () => {
       { name: "7 chars without hash", input: "fffffff" },
     ];
 
-    test.for(invalidLengths)(
-      "throws error for invalid length: $name ($input)",
+    it.for(invalidLengths)(
+      "throws error for invalid length: %o",
       ({ input }) => {
         expect(() => convertToRGB(input)).toThrow();
       },
@@ -171,12 +165,9 @@ describe("convertToRGB", () => {
       { name: "mixed valid/invalid no hash", input: "12345g" },
     ];
 
-    test.for(invalidCharacters)(
-      "throws error for $name: $input",
-      ({ input }) => {
-        expect(() => convertToRGB(input)).toThrow();
-      },
-    );
+    it.for(invalidCharacters)("throws error for %o", ({ input }) => {
+      expect(() => convertToRGB(input)).toThrow();
+    });
 
     const colorsWithSpaces = [
       { name: "space after hash", input: "# fff" },
@@ -187,8 +178,8 @@ describe("convertToRGB", () => {
       { name: "space after no hash", input: "fff " },
     ];
 
-    test.for(colorsWithSpaces)(
-      "throws error for colors with spaces: $name ($input)",
+    it.for(colorsWithSpaces)(
+      "throws error for colors with spaces: %o",
       ({ input }) => {
         expect(() => convertToRGB(input)).toThrow();
       },
@@ -199,8 +190,8 @@ describe("convertToRGB", () => {
       { name: "hash in middle", input: "#f#ff" },
     ];
 
-    test.for(multipleHashSymbols)(
-      "throws error for multiple hash symbols: $name ($input)",
+    it.for(multipleHashSymbols)(
+      "throws error for multiple hash symbols: %o",
       ({ input }) => {
         expect(() => convertToRGB(input)).toThrow();
       },

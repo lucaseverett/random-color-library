@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { relativeLuminance } from "./relativeLuminance.js";
 import { INVALID_HEX_COLORS, TEST_COLORS } from "./test.constants.js";
@@ -13,30 +13,30 @@ describe("relativeLuminance", () => {
       }),
     );
 
-    test.for(testColorsArray)(
-      "returns correct luminance for $name hex color $hex",
+    it.for(testColorsArray)(
+      "returns correct luminance for %o hex color",
       ({ hex, relativeLuminance: expectedLuminance }) => {
         expect(relativeLuminance(hex)).toBe(expectedLuminance);
       },
     );
 
-    test.for(testColorsArray)(
-      "returns correct luminance for $name uppercase hex color",
+    it.for(testColorsArray)(
+      "returns correct luminance for %o uppercase hex color",
       ({ hex, relativeLuminance: expectedLuminance }) => {
         expect(relativeLuminance(hex.toUpperCase())).toBe(expectedLuminance);
       },
     );
 
-    test.for(testColorsArray)(
-      "returns correct luminance for $name hex color without # prefix",
+    it.for(testColorsArray)(
+      "returns correct luminance for %o hex color without # prefix",
       ({ hex, relativeLuminance: expectedLuminance }) => {
         const hexWithoutHash = hex.slice(1);
         expect(relativeLuminance(hexWithoutHash)).toBe(expectedLuminance);
       },
     );
 
-    test.for(testColorsArray)(
-      "returns correct luminance for $name uppercase hex color without # prefix",
+    it.for(testColorsArray)(
+      "returns correct luminance for %o uppercase hex color without # prefix",
       ({ hex, relativeLuminance: expectedLuminance }) => {
         const hexWithoutHash = hex.slice(1).toUpperCase();
         expect(relativeLuminance(hexWithoutHash)).toBe(expectedLuminance);
@@ -44,45 +44,44 @@ describe("relativeLuminance", () => {
     );
 
     const testColors3Array = Object.entries(TEST_COLORS)
-      .filter(([, color]) => "hex3" in color)
+      .filter(([, color]) => "hex3" in color && color.hex3)
       .map(([name, color]) => ({
         name: name.toLowerCase(),
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        hex3: (color as any).hex3,
+        hex3: (color as typeof color & { hex3: string }).hex3,
         relativeLuminance: color.relativeLuminance,
       }));
 
-    test.for(testColors3Array)(
-      "returns correct luminance for $name 3-digit hex color $hex3",
+    it.for(testColors3Array)(
+      "returns correct luminance for %o 3-digit hex color",
       ({ hex3, relativeLuminance: expectedLuminance }) => {
         expect(relativeLuminance(hex3)).toBe(expectedLuminance);
       },
     );
 
-    test.for(testColors3Array)(
-      "returns correct luminance for $name uppercase 3-digit hex color",
+    it.for(testColors3Array)(
+      "returns correct luminance for %o uppercase 3-digit hex color",
       ({ hex3, relativeLuminance: expectedLuminance }) => {
         expect(relativeLuminance(hex3.toUpperCase())).toBe(expectedLuminance);
       },
     );
 
-    test.for(testColors3Array)(
-      "returns correct luminance for $name 3-digit hex color without # prefix",
+    it.for(testColors3Array)(
+      "returns correct luminance for %o 3-digit hex color without # prefix",
       ({ hex3, relativeLuminance: expectedLuminance }) => {
         const hex3WithoutHash = hex3.slice(1);
         expect(relativeLuminance(hex3WithoutHash)).toBe(expectedLuminance);
       },
     );
 
-    test.for(testColors3Array)(
-      "returns correct luminance for $name uppercase 3-digit hex color without # prefix",
+    it.for(testColors3Array)(
+      "returns correct luminance for %o uppercase 3-digit hex color without # prefix",
       ({ hex3, relativeLuminance: expectedLuminance }) => {
         const hex3WithoutHash = hex3.slice(1).toUpperCase();
         expect(relativeLuminance(hex3WithoutHash)).toBe(expectedLuminance);
       },
     );
 
-    test.for(INVALID_HEX_COLORS)(
+    it.for(INVALID_HEX_COLORS)(
       "throws error for invalid hex color %s",
       (invalidHex) => {
         expect(() => relativeLuminance(invalidHex)).toThrow();
@@ -99,27 +98,25 @@ describe("relativeLuminance", () => {
       }),
     );
 
-    test.for(testColorsArray)(
-      "should return correct luminance for $name RGB object",
+    it.for(testColorsArray)(
+      "should return correct luminance for %o RGB object",
       ({ rgb, relativeLuminance: expectedLuminance }) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        expect(relativeLuminance(rgb as any)).toBe(expectedLuminance);
+        expect(relativeLuminance(rgb)).toBe(expectedLuminance);
       },
     );
 
     const testRgbArraysArray = Object.entries(TEST_COLORS).map(
       ([name, color]) => ({
         name: name.toLowerCase(),
-        rgbArray: color.rgbArray,
+        rgbArray: color.rgbArray as [number, number, number],
         relativeLuminance: color.relativeLuminance,
       }),
     );
 
-    test.for(testRgbArraysArray)(
-      "should return correct luminance for $name RGB array",
+    it.for(testRgbArraysArray)(
+      "should return correct luminance for %o RGB array",
       ({ rgbArray, relativeLuminance: expectedLuminance }) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        expect(relativeLuminance(rgbArray as any)).toBe(expectedLuminance);
+        expect(relativeLuminance(rgbArray)).toBe(expectedLuminance);
       },
     );
 
@@ -131,21 +128,17 @@ describe("relativeLuminance", () => {
       }),
     );
 
-    test.for(testRgbStringsArray)(
-      "should return correct luminance for $name RGB string",
+    it.for(testRgbStringsArray)(
+      "should return correct luminance for %o RGB string",
       ({ rgbString, relativeLuminance: expectedLuminance }) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        expect(relativeLuminance(rgbString as any)).toBe(expectedLuminance);
+        expect(relativeLuminance(rgbString)).toBe(expectedLuminance);
       },
     );
 
-    test("should handle RGB separate parameters", () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      expect((relativeLuminance as any)(255, 255, 255)).toBe(1);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      expect((relativeLuminance as any)(0, 0, 0)).toBe(0);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      expect((relativeLuminance as any)(255, 0, 0)).toBe(0.2126);
+    it("should handle RGB separate parameters", () => {
+      expect(relativeLuminance(255, 255, 255)).toBe(1);
+      expect(relativeLuminance(0, 0, 0)).toBe(0);
+      expect(relativeLuminance(255, 0, 0)).toBe(0.2126);
     });
   });
 });

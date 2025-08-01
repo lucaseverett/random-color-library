@@ -164,16 +164,34 @@ relativeLuminance(255, 87, 34);
 
 ### Calculate Contrast Ratio
 
-Calculate the contrast ratio between two colors for accessibility compliance.
+Calculate the contrast ratio between two colors for accessibility compliance. Supports multiple input formats for both colors.
 
 ```javascript
 import { contrastRatio } from "random-color-library";
 
+// Hex string format
 contrastRatio("#ffffff", "#000000");
 // Returns 21 (the maximum contrast ratio between white and black)
 
 contrastRatio("#ff5722", "#ffffff");
 // Returns the contrast ratio between the two colors
+
+contrastRatio("#f57", "#fff"); // Supports 3-digit hex
+// Returns the contrast ratio between the colors
+
+// RGB object format
+contrastRatio({ r: 255, g: 255, b: 255 }, { r: 0, g: 0, b: 0 });
+// Returns 21
+
+// RGB array format
+contrastRatio([255, 255, 255], [0, 0, 0]);
+// Returns 21
+
+// Mixed formats (any combination of hex, RGB object, RGB array)
+contrastRatio("#ffffff", { r: 255, g: 87, b: 34 });
+contrastRatio([255, 255, 255], "#ff5722");
+contrastRatio({ r: 255, g: 255, b: 255 }, [255, 87, 34]);
+// All return the appropriate contrast ratios
 ```
 
 ### Convert RGB to Hex

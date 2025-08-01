@@ -2,16 +2,17 @@ import { validateHex } from "./validateHex.js";
 import { validateRGB } from "./validateRGB.js";
 
 type RGBObject = { r: number; g: number; b: number };
+type RGBTuple = [number, number, number];
 
 // Function overloads
 export function relativeLuminance(hex: string): number;
 export function relativeLuminance(rgb: RGBObject): number;
-export function relativeLuminance(rgb: [number, number, number]): number;
+export function relativeLuminance(rgb: RGBTuple): number;
 export function relativeLuminance(rgbString: string): number;
 export function relativeLuminance(r: number, g: number, b: number): number;
 
 export function relativeLuminance(
-  input: string | RGBObject | [number, number, number] | number,
+  input: string | RGBObject | RGBTuple | number,
   g?: number,
   b?: number,
 ): number {

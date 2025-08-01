@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import {
   INVALID_RGB_ARRAYS,
@@ -16,11 +16,11 @@ describe("validateRGB", () => {
     const validRgbObjects = Object.values(TEST_COLORS).map(
       (color) => color.rgb,
     );
-    test.for(validRgbObjects)("validates valid RGB object %o", (rgb) => {
+    it.for(validRgbObjects)("validates valid RGB object %o", (rgb) => {
       expect(validateRGB(rgb)).toBe(true);
     });
 
-    test.for(INVALID_RGB_OBJECTS)("rejects invalid RGB object %o", (rgb) => {
+    it.for(INVALID_RGB_OBJECTS)("rejects invalid RGB object %o", (rgb) => {
       expect(validateRGB(rgb)).toBe(false);
     });
   });
@@ -29,14 +29,14 @@ describe("validateRGB", () => {
     const validRgbArrays = Object.values(TEST_COLORS).map(
       (color) => color.rgbArray,
     );
-    test.for(validRgbArrays)(
+    it.for(validRgbArrays)(
       "validates valid RGB values (%i, %i, %i)",
       ([r, g, b]) => {
         expect(validateRGB(r, g, b)).toBe(true);
       },
     );
 
-    test.for(INVALID_RGB_SEPARATE_PARAMS)(
+    it.for(INVALID_RGB_SEPARATE_PARAMS)(
       "rejects invalid RGB values %o",
       (params) => {
         expect(validateRGB(...params)).toBe(false);
@@ -45,14 +45,11 @@ describe("validateRGB", () => {
   });
 
   describe("string input", () => {
-    test.for(VALID_RGB_STRINGS)(
-      "validates valid RGB string %s",
-      (rgbString) => {
-        expect(validateRGB(rgbString)).toBe(true);
-      },
-    );
+    it.for(VALID_RGB_STRINGS)("validates valid RGB string %s", (rgbString) => {
+      expect(validateRGB(rgbString)).toBe(true);
+    });
 
-    test.for(INVALID_RGB_STRINGS)(
+    it.for(INVALID_RGB_STRINGS)(
       "rejects invalid RGB string %s",
       (rgbString) => {
         expect(validateRGB(rgbString)).toBe(false);
@@ -64,11 +61,11 @@ describe("validateRGB", () => {
     const validRgbArrays = Object.values(TEST_COLORS).map(
       (color) => color.rgbArray,
     );
-    test.for(validRgbArrays)("validates valid RGB array %o", (rgbArray) => {
+    it.for(validRgbArrays)("validates valid RGB array %o", (rgbArray) => {
       expect(validateRGB(rgbArray)).toBe(true);
     });
 
-    test.for(INVALID_RGB_ARRAYS)("rejects invalid RGB array %o", (rgbArray) => {
+    it.for(INVALID_RGB_ARRAYS)("rejects invalid RGB array %o", (rgbArray) => {
       expect(validateRGB(rgbArray)).toBe(false);
     });
   });
@@ -78,7 +75,7 @@ describe("validateRGB", () => {
       expect(validateRGB()).toBe(false);
     });
 
-    test.for(INVALID_RGB_EDGE_CASES)(
+    it.for(INVALID_RGB_EDGE_CASES)(
       "rejects invalid input type %o",
       ([input]) => {
         expect(validateRGB(input)).toBe(false);

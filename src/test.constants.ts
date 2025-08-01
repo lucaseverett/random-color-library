@@ -114,41 +114,322 @@ export const TEST_COLORS = {
   },
 };
 
-// Contrast ratios between color pairs [color1, color2, ratio] - 6-digit hex
-export const CONTRAST_RATIOS_HEX = [
-  ["#000000", "#ffffff", 21],
-  ["#000000", "#ff0000", 5.25],
-  ["#000000", "#00ff00", 15.3],
-  ["#000000", "#0000ff", 2.44],
-  ["#000000", "#808080", 5.31],
-  ["#ffffff", "#ff0000", 3.99],
-  ["#ffffff", "#00ff00", 1.37],
-  ["#ffffff", "#0000ff", 8.59],
-  ["#ffffff", "#808080", 3.94],
-  ["#ff0000", "#00ff00", 2.91],
-  ["#ff0000", "#0000ff", 2.14],
-  ["#00ff00", "#0000ff", 6.26],
-  ["#ff8080", "#800000", 4.51],
-  ["#8080ff", "#000080", 4.91],
-  ["#c0c0c0", "#404040", 5.69],
-  ["#808080", "#c0c0c0", 2.17],
-  ["#404040", "#808080", 2.62],
+// Contrast ratios between color pairs with multiple formats
+type ContrastRatioTestCase = {
+  color1: {
+    hex: string;
+    hex3?: string;
+    rgb: { r: number; g: number; b: number };
+    rgbArray: [number, number, number];
+  };
+  color2: {
+    hex: string;
+    hex3?: string;
+    rgb: { r: number; g: number; b: number };
+    rgbArray: [number, number, number];
+  };
+  ratio: number;
+};
+
+export const CONTRAST_RATIOS: ContrastRatioTestCase[] = [
+  {
+    color1: {
+      hex: "#000000",
+      hex3: "#000",
+      rgb: { r: 0, g: 0, b: 0 },
+      rgbArray: [0, 0, 0],
+    },
+    color2: {
+      hex: "#ffffff",
+      hex3: "#fff",
+      rgb: { r: 255, g: 255, b: 255 },
+      rgbArray: [255, 255, 255],
+    },
+    ratio: 21,
+  },
+  {
+    color1: {
+      hex: "#000000",
+      hex3: "#000",
+      rgb: { r: 0, g: 0, b: 0 },
+      rgbArray: [0, 0, 0],
+    },
+    color2: {
+      hex: "#ff0000",
+      hex3: "#f00",
+      rgb: { r: 255, g: 0, b: 0 },
+      rgbArray: [255, 0, 0],
+    },
+    ratio: 5.25,
+  },
+  {
+    color1: {
+      hex: "#000000",
+      hex3: "#000",
+      rgb: { r: 0, g: 0, b: 0 },
+      rgbArray: [0, 0, 0],
+    },
+    color2: {
+      hex: "#00ff00",
+      hex3: "#0f0",
+      rgb: { r: 0, g: 255, b: 0 },
+      rgbArray: [0, 255, 0],
+    },
+    ratio: 15.3,
+  },
+  {
+    color1: {
+      hex: "#000000",
+      hex3: "#000",
+      rgb: { r: 0, g: 0, b: 0 },
+      rgbArray: [0, 0, 0],
+    },
+    color2: {
+      hex: "#0000ff",
+      hex3: "#00f",
+      rgb: { r: 0, g: 0, b: 255 },
+      rgbArray: [0, 0, 255],
+    },
+    ratio: 2.44,
+  },
+  {
+    color1: {
+      hex: "#000000",
+      hex3: "#000",
+      rgb: { r: 0, g: 0, b: 0 },
+      rgbArray: [0, 0, 0],
+    },
+    color2: {
+      hex: "#808080",
+      rgb: { r: 128, g: 128, b: 128 },
+      rgbArray: [128, 128, 128],
+    },
+    ratio: 5.31,
+  },
+  {
+    color1: {
+      hex: "#ffffff",
+      hex3: "#fff",
+      rgb: { r: 255, g: 255, b: 255 },
+      rgbArray: [255, 255, 255],
+    },
+    color2: {
+      hex: "#ff0000",
+      hex3: "#f00",
+      rgb: { r: 255, g: 0, b: 0 },
+      rgbArray: [255, 0, 0],
+    },
+    ratio: 3.99,
+  },
+  {
+    color1: {
+      hex: "#ffffff",
+      hex3: "#fff",
+      rgb: { r: 255, g: 255, b: 255 },
+      rgbArray: [255, 255, 255],
+    },
+    color2: {
+      hex: "#00ff00",
+      hex3: "#0f0",
+      rgb: { r: 0, g: 255, b: 0 },
+      rgbArray: [0, 255, 0],
+    },
+    ratio: 1.37,
+  },
+  {
+    color1: {
+      hex: "#ffffff",
+      hex3: "#fff",
+      rgb: { r: 255, g: 255, b: 255 },
+      rgbArray: [255, 255, 255],
+    },
+    color2: {
+      hex: "#0000ff",
+      hex3: "#00f",
+      rgb: { r: 0, g: 0, b: 255 },
+      rgbArray: [0, 0, 255],
+    },
+    ratio: 8.59,
+  },
+  {
+    color1: {
+      hex: "#ffffff",
+      hex3: "#fff",
+      rgb: { r: 255, g: 255, b: 255 },
+      rgbArray: [255, 255, 255],
+    },
+    color2: {
+      hex: "#808080",
+      rgb: { r: 128, g: 128, b: 128 },
+      rgbArray: [128, 128, 128],
+    },
+    ratio: 3.94,
+  },
+  {
+    color1: {
+      hex: "#ff0000",
+      hex3: "#f00",
+      rgb: { r: 255, g: 0, b: 0 },
+      rgbArray: [255, 0, 0],
+    },
+    color2: {
+      hex: "#00ff00",
+      hex3: "#0f0",
+      rgb: { r: 0, g: 255, b: 0 },
+      rgbArray: [0, 255, 0],
+    },
+    ratio: 2.91,
+  },
+  {
+    color1: {
+      hex: "#ff0000",
+      hex3: "#f00",
+      rgb: { r: 255, g: 0, b: 0 },
+      rgbArray: [255, 0, 0],
+    },
+    color2: {
+      hex: "#0000ff",
+      hex3: "#00f",
+      rgb: { r: 0, g: 0, b: 255 },
+      rgbArray: [0, 0, 255],
+    },
+    ratio: 2.14,
+  },
+  {
+    color1: {
+      hex: "#00ff00",
+      hex3: "#0f0",
+      rgb: { r: 0, g: 255, b: 0 },
+      rgbArray: [0, 255, 0],
+    },
+    color2: {
+      hex: "#0000ff",
+      hex3: "#00f",
+      rgb: { r: 0, g: 0, b: 255 },
+      rgbArray: [0, 0, 255],
+    },
+    ratio: 6.26,
+  },
+  {
+    color1: {
+      hex: "#ff8080",
+      rgb: { r: 255, g: 128, b: 128 },
+      rgbArray: [255, 128, 128],
+    },
+    color2: {
+      hex: "#800000",
+      rgb: { r: 128, g: 0, b: 0 },
+      rgbArray: [128, 0, 0],
+    },
+    ratio: 4.51,
+  },
+  {
+    color1: {
+      hex: "#8080ff",
+      rgb: { r: 128, g: 128, b: 255 },
+      rgbArray: [128, 128, 255],
+    },
+    color2: {
+      hex: "#000080",
+      rgb: { r: 0, g: 0, b: 128 },
+      rgbArray: [0, 0, 128],
+    },
+    ratio: 4.91,
+  },
+  {
+    color1: {
+      hex: "#c0c0c0",
+      rgb: { r: 192, g: 192, b: 192 },
+      rgbArray: [192, 192, 192],
+    },
+    color2: {
+      hex: "#404040",
+      rgb: { r: 64, g: 64, b: 64 },
+      rgbArray: [64, 64, 64],
+    },
+    ratio: 5.69,
+  },
+  {
+    color1: {
+      hex: "#808080",
+      rgb: { r: 128, g: 128, b: 128 },
+      rgbArray: [128, 128, 128],
+    },
+    color2: {
+      hex: "#c0c0c0",
+      rgb: { r: 192, g: 192, b: 192 },
+      rgbArray: [192, 192, 192],
+    },
+    ratio: 2.17,
+  },
+  {
+    color1: {
+      hex: "#404040",
+      rgb: { r: 64, g: 64, b: 64 },
+      rgbArray: [64, 64, 64],
+    },
+    color2: {
+      hex: "#808080",
+      rgb: { r: 128, g: 128, b: 128 },
+      rgbArray: [128, 128, 128],
+    },
+    ratio: 2.62,
+  },
+  {
+    color1: {
+      hex: "#ffffff",
+      hex3: "#fff",
+      rgb: { r: 255, g: 255, b: 255 },
+      rgbArray: [255, 255, 255],
+    },
+    color2: {
+      hex: "#cccccc",
+      hex3: "#ccc",
+      rgb: { r: 204, g: 204, b: 204 },
+      rgbArray: [204, 204, 204],
+    },
+    ratio: 1.6,
+  },
+  {
+    color1: {
+      hex: "#000000",
+      hex3: "#000",
+      rgb: { r: 0, g: 0, b: 0 },
+      rgbArray: [0, 0, 0],
+    },
+    color2: {
+      hex: "#444444",
+      hex3: "#444",
+      rgb: { r: 68, g: 68, b: 68 },
+      rgbArray: [68, 68, 68],
+    },
+    ratio: 2.15,
+  },
+  {
+    color1: {
+      hex: "#444444",
+      hex3: "#444",
+      rgb: { r: 68, g: 68, b: 68 },
+      rgbArray: [68, 68, 68],
+    },
+    color2: {
+      hex: "#cccccc",
+      hex3: "#ccc",
+      rgb: { r: 204, g: 204, b: 204 },
+      rgbArray: [204, 204, 204],
+    },
+    ratio: 6.06,
+  },
 ];
 
-// Contrast ratios between color pairs [color1, color2, ratio] - 3-digit hex
-export const CONTRAST_RATIOS_HEX3 = [
-  ["#000", "#fff", 21],
-  ["#000", "#f00", 5.25],
-  ["#000", "#0f0", 15.3],
-  ["#000", "#00f", 2.44],
-  ["#fff", "#f00", 3.99],
-  ["#fff", "#00f", 8.59],
-  ["#f00", "#0f0", 2.91],
-  ["#0f0", "#00f", 6.26],
-  ["#fff", "#ccc", 1.6],
-  ["#000", "#444", 2.15],
-  ["#444", "#ccc", 6.06],
-];
+// Legacy arrays for backward compatibility
+export const CONTRAST_RATIOS_HEX = CONTRAST_RATIOS.map(
+  ({ color1, color2, ratio }) => [color1.hex, color2.hex, ratio],
+);
+
+export const CONTRAST_RATIOS_HEX3 = CONTRAST_RATIOS.filter(
+  ({ color1, color2 }) => color1.hex3 && color2.hex3,
+).map(({ color1, color2, ratio }) => [color1.hex3, color2.hex3, ratio]);
 
 // Invalid RGB test cases
 export const INVALID_RGB_OBJECTS = [
