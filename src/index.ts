@@ -6,3 +6,4 @@ export { validateHex } from "./validateHex.js";
 export { validateRGB } from "./validateRGB.js";
 export { convertToHex } from "./convertToHex.js";
 export { convertToRGB } from "./convertToRGB.js";
+export { addOpacity } from "./addOpacity.js";

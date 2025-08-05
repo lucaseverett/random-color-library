@@ -238,6 +238,29 @@ convertToRGB("#FF5722"); // Returns { r: 255, g: 87, b: 34 }
 convertToRGB("FF5722"); // Returns { r: 255, g: 87, b: 34 }
 ```
 
+### Add Opacity to Hex Color
+
+Add an alpha (opacity) channel to a hex color.
+
+```javascript
+import { addOpacity } from "random-color-library";
+
+// Add 50% opacity
+addOpacity("#ff5722", 0.5); // Returns "#ff572280"
+
+// Add 25% opacity
+addOpacity("#ffffff", 0.25); // Returns "#ffffff40"
+
+// Works with 3-digit hex (expanded to 6-digit)
+addOpacity("#f57", 0.75); // Returns "#ff5577bf"
+
+// Works without # prefix
+addOpacity("ff5722", 0.9); // Returns "#ff5722e6"
+
+// Case insensitive
+addOpacity("#FF5722", 0.1); // Returns "#ff57221a"
+```
+
 ## Development
 
 ### Installation

@@ -567,6 +567,162 @@ export const INVALID_RGB_EDGE_CASES = [
   [function () {}],
 ];
 
+// Hex alpha conversion test data
+export const HEX_ALPHA_CONVERSIONS = [
+  // Fully opaque (100%)
+  {
+    originalHex: "#ff0000",
+    opacityPercent: 100,
+    convertedHex: "#ff0000ff",
+  },
+  {
+    originalHex: "#00ff00",
+    opacityPercent: 100,
+    convertedHex: "#00ff00ff",
+  },
+  {
+    originalHex: "#0000ff",
+    opacityPercent: 100,
+    convertedHex: "#0000ffff",
+  },
+
+  // 50% opacity
+  {
+    originalHex: "#ff0000",
+    opacityPercent: 50,
+    convertedHex: "#ff000080",
+  },
+  {
+    originalHex: "#00ff00",
+    opacityPercent: 50,
+    convertedHex: "#00ff0080",
+  },
+  {
+    originalHex: "#0000ff",
+    opacityPercent: 50,
+    convertedHex: "#0000ff80",
+  },
+
+  // 25% opacity
+  {
+    originalHex: "#ffffff",
+    opacityPercent: 25,
+    convertedHex: "#ffffff40",
+  },
+  {
+    originalHex: "#000000",
+    opacityPercent: 25,
+    convertedHex: "#00000040",
+  },
+  {
+    originalHex: "#808080",
+    opacityPercent: 25,
+    convertedHex: "#80808040",
+  },
+
+  // 75% opacity
+  {
+    originalHex: "#ff8080",
+    opacityPercent: 75,
+    convertedHex: "#ff8080bf",
+  },
+  {
+    originalHex: "#8080ff",
+    opacityPercent: 75,
+    convertedHex: "#8080ffbf",
+  },
+  {
+    originalHex: "#80ff80",
+    opacityPercent: 75,
+    convertedHex: "#80ff80bf",
+  },
+
+  // 10% opacity
+  {
+    originalHex: "#ff6b6b",
+    opacityPercent: 10,
+    convertedHex: "#ff6b6b1a",
+  },
+  {
+    originalHex: "#4ecdc4",
+    opacityPercent: 10,
+    convertedHex: "#4ecdc41a",
+  },
+  {
+    originalHex: "#45b7d1",
+    opacityPercent: 10,
+    convertedHex: "#45b7d11a",
+  },
+
+  // 90% opacity
+  {
+    originalHex: "#2ecc71",
+    opacityPercent: 90,
+    convertedHex: "#2ecc71e6",
+  },
+  {
+    originalHex: "#e74c3c",
+    opacityPercent: 90,
+    convertedHex: "#e74c3ce6",
+  },
+  {
+    originalHex: "#f39c12",
+    opacityPercent: 90,
+    convertedHex: "#f39c12e6",
+  },
+
+  // Edge cases - fully transparent (0%)
+  {
+    originalHex: "#ffffff",
+    opacityPercent: 0,
+    convertedHex: "#ffffff00",
+  },
+  {
+    originalHex: "#000000",
+    opacityPercent: 0,
+    convertedHex: "#00000000",
+  },
+
+  // 3-character hex codes
+  {
+    originalHex: "#f00",
+    opacityPercent: 50,
+    convertedHex: "#ff000080",
+  },
+  {
+    originalHex: "#0f0",
+    opacityPercent: 75,
+    convertedHex: "#00ff00bf",
+  },
+  {
+    originalHex: "#00f",
+    opacityPercent: 25,
+    convertedHex: "#0000ff40",
+  },
+
+  // Various common opacity values
+  {
+    originalHex: "#9b59b6",
+    opacityPercent: 33,
+    convertedHex: "#9b59b654",
+  },
+  {
+    originalHex: "#3498db",
+    opacityPercent: 67,
+    convertedHex: "#3498dbab",
+  },
+  {
+    originalHex: "#e67e22",
+    opacityPercent: 80,
+    convertedHex: "#e67e22cc",
+  },
+  {
+    originalHex: "#1abc9c",
+    opacityPercent: 20,
+    convertedHex: "#1abc9c33",
+  },
+];
+
 // Invalid hex color test cases
 export const INVALID_HEX_COLORS = [
   // Invalid lengths

@@ -24,6 +24,7 @@ This is a TypeScript library that generates random colors from the Material Desi
 - **Validation**: `src/validateHex.ts` - Hex color validation, `src/validateRGB.ts` - RGB color validation
 - **Color Analysis**: `src/contrastRatio.ts`, `src/relativeLuminance.ts` - Color accessibility utilities
 - **Color Conversion**: `src/convertToHex.ts` - RGB to Hex color conversion, `src/convertToRGB.ts` - Hex to RGB color conversion
+- **Color Manipulation**: `src/addOpacity.ts` - Add alpha (opacity) channel to hex colors
 
 ### Key Features
 
@@ -32,6 +33,7 @@ This is a TypeScript library that generates random colors from the Material Desi
 - **Type Safety**: Full TypeScript support with strict typing for colors and shades
 - **Function Overloads**: Multiple call signatures for different use cases
 - **Multiple Input Formats**: Color analysis functions support hex strings, RGB objects, arrays, and strings
+- **Color Manipulation**: Add opacity/alpha channels to hex colors for transparency effects
 
 ### Testing Strategy
 
